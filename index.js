@@ -3,6 +3,7 @@
 
 var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
+var path = require('path');
 
 var databaseUri = process.env.DATABASE_URI || process.env.MONGODB_URI;
 
@@ -46,6 +47,7 @@ var api = new ParseServer({
   masterKey: process.env.MASTER_KEY || '', //Add your master key here. Keep it secret!
   push: pushConfig,
   filesAdapter: filesAdapter,
+  liveQuery: { classNames: ["Message"]},
   serverURL: process.env.SERVER_URL || 'http://localhost/parse'  // needed for Parse Cloud and push notifications
 });
 // Client-keys like the javascript key or the .NET key are not necessary with parse-server
@@ -53,6 +55,9 @@ var api = new ParseServer({
 // javascriptKey, restAPIKey, dotNetKey, clientKey
 
 var app = express();
+
+// Serve static assets from the /public folder
+app.use('/public', express.static(path.join(__dirname, '/public')));
 
 // Serve the Parse API on the /parse URL prefix
 var mountPath = process.env.PARSE_MOUNT || '/parse';
@@ -64,6 +69,10 @@ app.get('/', function(req, res) {
 });
 
 var port = process.env.PORT || 1337;
-app.listen(port, function() {
+var httpServer = require('http').createServer(app);
+httpServer.listen(port, function() {
     console.log('parse-server-example running on port ' + port + '.');
 });
+
+// This will enable the Live Query real-time server
+ParseServer.createLiveQueryServer(httpServer);
