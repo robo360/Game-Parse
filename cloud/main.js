@@ -1,13 +1,14 @@
 // Android push test
+// To be used with:
+// https://github.com/codepath/ParsePushNotificationExample
+// See https://github.com/codepath/ParsePushNotificationExample/blob/master/app/src/main/java/com/test/MyCustomReceiver.java
+
 Parse.Cloud.define('pushChannelTest', function(request, response) {
 
   // request has 2 parameters: params passed by the client and the authorized user
   var params = request.params;
   var user = request.user;
 
-  // To be used with:
-  // https://github.com/codepath/ParsePushNotificationExample
-  // See https://github.com/codepath/ParsePushNotificationExample/blob/master/app/src/main/java/com/test/MyCustomReceiver.java
   var customData = params.customData;
   var launch = params.launch;
   var broadcast = params.broadcast;
