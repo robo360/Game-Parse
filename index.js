@@ -13,8 +13,8 @@ if (!databaseUri) {
 
 var pushConfig = {};
 
-if (process.env.GCM_API_KEY) {
-    pushConfig['android'] = { apiKey: process.env.GCM_API_KEY || ''};
+if (process.env.FCM_API_KEY) {
+    pushConfig['android'] = { apiKey: process.env.FCM_API_KEY || ''};
 }
 
 if (process.env.APNS_ENABLE) {
