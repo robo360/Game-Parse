@@ -1,6 +1,6 @@
-# parse-server-example
+# Game-Parse
 
-Example project using the parse-server module on Express.
+A project using the parse-server module on Express.
 
 Read the full server guide here: https://parse.com/docs/server/guide
 
@@ -80,7 +80,7 @@ curl -X POST \
   -H "Content-Type: application/json" \
   -d '{"score":1337,"playerName":"Sean Plott","cheatMode":false}' \
   http://localhost:1337/parse/classes/GameScore
-  
+
 curl -X POST \
   -H "X-Parse-Application-Id: myAppId" \
   -H "Content-Type: application/json" \
